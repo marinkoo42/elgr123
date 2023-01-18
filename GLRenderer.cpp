@@ -350,7 +350,7 @@ void CGLRenderer::DrawAxis()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-
+//crta valjak
 void CGLRenderer::DrawTube(double r1, double r2, double h, int n)
 {
 	float step = 2 * 3.14 / n;
@@ -388,7 +388,7 @@ void CGLRenderer::DrawTube(double r1, double r2, double h, int n)
 	}
 	glEnd();
 }
-//dodato vetrenjaca
+//dodato vetrenjaca valjak
 void GLRenderer::DrawTube(double r1, double r2, double h, int n)
 {
 	glBegin(GL_QUAD_STRIP);
@@ -435,6 +435,7 @@ void GLRenderer::DrawTube(double r1, double r2, double h, int n)
 	glEnd();
 }
 
+//crta loptu
 void CGLRenderer::DrawSphere(double r, int nSeg, double texU, double texV, double texR)
 {
 	int i, j;
@@ -474,6 +475,7 @@ void CGLRenderer::DrawSphere(double r, int nSeg, double texU, double texV, doubl
 	}
 }
 
+//crta kupu
 void CGLRenderer::DrawCone(double r, double h, int nSeg, double texU, double texV, double texR)
 {
 	double ang1, ang2;
@@ -502,6 +504,7 @@ void CGLRenderer::DrawCone(double r, double h, int nSeg, double texU, double tex
 	glEnd();
 }
 
+//crta prizmu
 void CGLRenderer::DrawExtrudedPolygon(POINTF* points, POINTF* texCoords, int n, float zh, float r, float g, float b)
 {
 	DrawPolygon(points, texCoords, n);
@@ -522,6 +525,7 @@ void CGLRenderer::DrawExtrudedPolygon(POINTF* points, POINTF* texCoords, int n, 
 	glPopMatrix();
 }
 
+//crta poligon, koristi se za prizmu
 void CGLRenderer::DrawPolygon(POINTF* points, POINTF* texCoords, int n)
 {
 	glColor3f(1, 1, 1);
