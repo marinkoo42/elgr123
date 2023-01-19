@@ -271,6 +271,102 @@ void CGLRenderer::DrawScene(CDC* pDC)
 	SwapBuffers(pDC->m_hDC);
 	wglMakeCurrent(NULL, NULL);
 }
+//vetrenjaca - kako se dodaje tekstura
+void GLRenderer::DrawScene(CDC* pDC)
+{
+    wglMakeCurrent(pDC->m_hDC, m_hrc);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+
+ 
+
+    glDisable(GL_LIGHTING);
+
+ 
+
+    glBegin(GL_LINES);
+    {
+        glColor3f(1.0, 0.0, 0.0);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(10.0, 0.0, 0.0);
+
+ 
+
+        glColor3f(0.0, 1.0, 0.0);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 10.0, 0.0);
+
+ 
+
+        glColor3f(0.0, 0.0, 1.0);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 0.0, 10.0);
+    }
+    glEnd();
+
+ 
+
+    glDisable(GL_DEPTH_TEST);
+    glPushMatrix();
+    glRotatef(xRotAngle, 1.0, 0.0, 0.0);
+    glRotatef(yRotAngle, 0.0, 1.0, 0.0);
+    DrawCube(1.0);
+    glPopMatrix();
+    glEnable(GL_DEPTH_TEST);
+
+ 
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
+ 
+
+    float ambient[] = { 0.0, 0.0, 0.0, 1.0 };
+    float diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+    float specular[] = { 1.0, 1.0, 1.0, 1.0 };
+
+ 
+
+    GLfloat position[] = { 1.0, 1.0, 1.0, 0.0 };
+
+ 
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+
+ 
+
+    glBindTexture(GL_TEXTURE_2D, brickTex); //pogledaj jos malo ovaj deo
+    glTranslatef(0, 0, -20);
+    glRotatef(xRotAngle, 1.0, 0.0, 0.0);
+    glRotatef(yRotAngle, 0.0, 1.0, 0.0);
+    glLightfv(GL_LIGHT0, GL_POSITION, position);
+    DrawTube(2.5, 3.5, 10, 32);
+    glDisable(GL_TEXTURE_2D);
+    glTranslatef(0.0, 5.0, 0.0);
+    DrawCone(3.8, 2, 32);
+    glTranslatef(0.0, 0.0, 3.8);
+
+ 
+
+    glRotatef(paddleRotAngle, 0.0, 0.0, 1.0);
+    DrawPaddle(8, 1.5);
+    glRotatef(90, 0.0, 0.0, 1.0);
+    DrawPaddle(8, 1.5);
+    glRotatef(90, 0.0, 0.0, 1.0);
+    DrawPaddle(8, 1.5);
+    glRotatef(90, 0.0, 0.0, 1.0);
+    DrawPaddle(8, 1.5);
+    glEnable(GL_TEXTURE_2D);
+
+ 
+
+    glFlush();
+    SwapBuffers(pDC->m_hDC);
+    wglMakeCurrent(NULL, NULL);
+}
+
 void CGLRenderer::DrawEnv(double h, double a)
 {
 	double start = 0.0, offset = 1.0 / 4.0;
